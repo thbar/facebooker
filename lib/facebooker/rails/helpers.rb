@@ -35,8 +35,8 @@ module Facebooker
  
       
       def fbjs_library
-        "<script>var _token = '#{form_authenticity_token}';var _hostname = '#{ActionController::Base.asset_host}'</script>"+
-        "#{javascript_include_tag 'facebooker'}"
+        ("<script>var _token = '#{form_authenticity_token}';var _hostname = '#{ActionController::Base.asset_host}'</script>"+
+            "#{javascript_include_tag 'facebooker'}").html_safe
       end
       
       def fb_iframe(src, options = {})
@@ -107,7 +107,7 @@ module Facebooker
       #   <% end %>
       # <em>See:</em> http://wiki.developers.facebook.com/index.php/Fb:request-form-submit for options
       def fb_request_form_submit(options={})
-         tag("fb:request-form-submit",stringify_vals(options))
+        tag("fb:request-form-submit",stringify_vals(options))
       end                                              
 
 
@@ -474,19 +474,19 @@ module Facebooker
 
       # Renders an action using the <fb:action> tag
       def fb_action(name, url)
-        "<fb:action href=\"#{url_for(url)}\">#{name}</fb:action>"
+        "<fb:action href=\"#{url_for(url)}\">#{name}</fb:action>".html_safe
       end
            
       # Render a <fb:help> tag
       # For use inside <fb:dashboard>
       def fb_help(name, url)
-        "<fb:help href=\"#{url_for(url)}\">#{name}</fb:help>"
+        "<fb:help href=\"#{url_for(url)}\">#{name}</fb:help>".html_safe
       end
 
       # Render a <fb:create-button> tag
       # For use inside <fb:dashboard>
       def fb_create_button(name, url)
-         "<fb:create-button href=\"#{url_for(url)}\">#{name}</fb:create-button>"
+         "<fb:create-button href=\"#{url_for(url)}\">#{name}</fb:create-button>".html_safe
       end
       
       # Create a comment area
@@ -504,7 +504,7 @@ module Facebooker
       #
       # +title+: This is the canvas page window 
       def fb_title(title)
-       "<fb:title>#{title}</fb:title>"
+       "<fb:title>#{title}</fb:title>".html_safe
       end
       
       # Create a Google Analytics tag

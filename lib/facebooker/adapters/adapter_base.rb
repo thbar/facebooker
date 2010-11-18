@@ -3,7 +3,7 @@ module Facebooker
   class AdapterBase
     class UnableToLoadAdapter < Exception; end
     require 'active_support/inflector'
-    include  ActiveSupport::CoreExtensions::String::Inflections
+    include  ActiveSupport::Inflector
     def facebook_path_prefix
       "/" + (@facebook_path_prefix || canvas_page_name || ENV['FACEBOOK_CANVAS_PATH'] || ENV['FACEBOOKER_RELATIVE_URL_ROOT'])
     end

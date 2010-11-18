@@ -43,8 +43,8 @@ module Facebooker
     def load_configuration(facebooker_yaml_file)
       return false unless File.exist?(facebooker_yaml_file)
       @raw_facebooker_configuration = YAML.load(ERB.new(File.read(facebooker_yaml_file)).result)
-      if defined? RAILS_ENV
-        @raw_facebooker_configuration = @raw_facebooker_configuration[RAILS_ENV]
+      if defined? Rails.env
+        @raw_facebooker_configuration = @raw_facebooker_configuration[Rails.env]
       end
       Thread.current[:fb_api_config] = @raw_facebooker_configuration unless Thread.current[:fb_api_config]
       apply_configuration(@raw_facebooker_configuration)
@@ -259,3 +259,5 @@ require 'facebooker/models/message_thread'
 require 'facebooker/adapters/adapter_base'
 require 'facebooker/adapters/facebook_adapter'
 require 'facebooker/adapters/bebo_adapter'
+
+require 'facebooker/railtie'

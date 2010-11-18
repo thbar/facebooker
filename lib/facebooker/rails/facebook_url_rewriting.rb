@@ -15,17 +15,17 @@ module ::ActionController
 
   class Base
     class << self
-      alias :old_relative_url_root :relative_url_root
       def relative_url_root
-        Facebooker.path_prefix
+        Facebooker.path_prefix || old_relative_url_root
       end
+      alias :old_relative_url_root :relative_url_root
     end
   end
 
   class UrlRewriter
     include Facebooker::Rails::BackwardsCompatibleParamChecks
 
-    RESERVED_OPTIONS << :canvas
+    # RESERVED_OPTIONS << :canvas
 
     def link_to_new_canvas?
       one_or_true @request.parameters["fb_sig_in_new_facebook"]
@@ -42,7 +42,7 @@ module ::ActionController
       @request.request_parameters
     end
   
-    def rewrite_url_with_facebooker(*args)
+    def rewrite(*args)
       options = args.first.is_a?(Hash) ? args.first : args.last
       is_link_to_canvas = link_to_canvas?(options)
       if is_link_to_canvas && !options.has_key?(:host)
@@ -50,11 +50,11 @@ module ::ActionController
       end 
       options.delete(:canvas)
       Facebooker.request_for_canvas(is_link_to_canvas) do
-        rewrite_url_without_facebooker(*args)
+        super(*args)
       end
     end
     
-    alias_method_chain :rewrite_url, :facebooker
+    # alias_method_chain :rewrite, :facebooker
 
   end
 end
