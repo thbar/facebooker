@@ -994,7 +994,7 @@ module Facebooker
       'facebook.dashboard.publishActivity' => DashboardPublishActivity,
       'facebook.dashboard.removeActivity' => DashboardRemoveActivity,
       'facebook.dashboard.getActivity' => DashboardGetActivity,
-      'facebook.intl.uploadNativeStrings' => UploadNativeStrings
+      'facebook.intl.uploadNativeStrings' => UploadNativeStrings,
       'facebook.notes.create' => NoteCreate
     }
   end
